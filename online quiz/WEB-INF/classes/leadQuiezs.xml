@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+    <import resource="DataBaseXml.xml"/>
+
+    
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+  <property name="configLocation">
+            <value>classpath:leadQuiezs.cfg.xml</value>
+        </property>
+        
+    </bean>
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="userDao" class="org.com.leadquiezs.dao.UserDaoImpI">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="quiezDoa" class="org.com.leadquiezs.dao.QuiezDaoImpI">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+     <bean id="questionDao" class="org.com.leadquiezs.dao.QuestionDaoImpI">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="outComeDao" class="org.com.leadquiezs.dao.OutComeDaoImpI">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+</beans>
